@@ -1,6 +1,8 @@
 ;;; package -- summary
 ;;; Commentary:
-(require 'bind-key)
+(require-package 'use-package)
+;;;(use-package bind-key)
+(require-package 'bind-key)
 
 (defun linux-copy (beg end)
   (interactive "r")
@@ -68,16 +70,16 @@
                    (previous-line 10)))
 
 
-(require 'use-package)
+;;;(require 'use-package)
 
 (use-package lsp-mode
-  :ensure t
-  ;; uncomment to enable gopls http debug server
-  ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:0"))
-  :commands (lsp lsp-deferred)
-  :config (progn
-            ;; use flycheck, not flymake
-            (setq lsp-prefer-flymake nil)))
+             :ensure t
+             ;; uncomment to enable gopls http debug server
+             ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:0"))
+             :commands (lsp lsp-deferred)
+             :config (progn
+                       ;; use flycheck, not flymake
+                       (setq lsp-prefer-flymake nil)))
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -116,6 +118,7 @@
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports)))
 
+(require-package 'go-guru)
 (use-package go-guru
   :demand t)
 
