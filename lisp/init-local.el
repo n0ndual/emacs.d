@@ -2,7 +2,9 @@
 
 ;;; Code:
 
-
+;;; initialize packages
+(package-initialize)
+(require-package 'bind-key)
 ;;; theme
 (require-package 'solarized-theme)
 (load-theme 'solarized-wombat-dark)
@@ -68,7 +70,7 @@
 ;;(global-linum-mode 1) ; always show line numbers
 ;;(setq linum-format "%d| ")  ;set format
 
-(require 'bind-key)
+;;(require 'bind-key)
 
 (bind-key* "M-n" (lambda ()
                    (interactive)
@@ -80,7 +82,7 @@
                    (previous-line 10)))
 
 ;;; golang
-(require 'go-mode)
+(require-package 'go-mode)
 
 (add-hook 'go-mode-hook #'lsp-deferred)
 
@@ -91,8 +93,8 @@
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
-(require 'lsp-mode)
-(require 'use-package)
+(require-package 'lsp-mode)
+(require-package 'use-package)
 (use-package lsp-mode
   :ensure t
   ;; uncomment to enable gopls http debug server
