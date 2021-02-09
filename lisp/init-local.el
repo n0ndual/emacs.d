@@ -2,9 +2,6 @@
 
 ;;; Code:
 
-;;; initialize packages
-(package-initialize)
-(require-package 'bind-key)
 ;;; theme
 (require-package 'solarized-theme)
 (load-theme 'solarized-wombat-dark)
@@ -20,8 +17,9 @@
       (process-send-eof proc))))
 
 (if (eq system-type 'darwin)
-    (setq interprogram-cut-function 'paste-to-osx)
-  (setq interprogram-paste-function 'copy-from-osx)
+    (  (setq interprogram-cut-function 'paste-to-osx)
+       (setq interprogram-paste-function 'copy-from-osx)
+       )
 
   )
 
@@ -57,8 +55,6 @@
 (if (eq system-type 'gnu/linux)
     (setq interprogram-cut-function 'linux-copy-non-inter))
 
-
-
 ;;;; org-mode
 (add-hook 'org-mode-hook
           (lambda()
@@ -70,8 +66,7 @@
 ;;(global-linum-mode 1) ; always show line numbers
 ;;(setq linum-format "%d| ")  ;set format
 
-;;(require 'bind-key)
-
+(require-package 'bind-key)
 (bind-key* "M-n" (lambda ()
                    (interactive)
                    (setq this-command 'next-line)
