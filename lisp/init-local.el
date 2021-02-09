@@ -39,6 +39,7 @@
      ))
   )
 
+
 (defun linux-copy-non-inter (text &optional push)
   (with-temp-buffer
     (insert text)
@@ -68,6 +69,7 @@
 ;;(setq linum-format "%d| ")  ;set format
 
 (require 'bind-key)
+
 (bind-key* "M-n" (lambda ()
                    (interactive)
                    (setq this-command 'next-line)
@@ -76,8 +78,6 @@
                    (interactive)
                    (setq this-command 'next-line)
                    (previous-line 10)))
-
-
 
 ;;; golang
 (require 'go-mode)
@@ -90,7 +90,6 @@
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
 
 (require 'lsp-mode)
 (require 'use-package)
@@ -125,7 +124,6 @@
 (use-package go-guru
   :demand t)
 
-
 ;;; plantuml
 (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/plantuml.jar"))
 
@@ -135,3 +133,4 @@
   )
 
 (provide 'init-local)
+;;; init-local.el ends here
