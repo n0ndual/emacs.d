@@ -113,10 +113,6 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1))
 
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-
 (require-package 'go-guru)
 (use-package go-guru
   :demand t)
