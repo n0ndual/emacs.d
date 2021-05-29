@@ -5,6 +5,7 @@
 ;;; theme
 (require-package 'solarized-theme)
 (load-theme 'solarized-wombat-dark)
+(disable-theme 'solarized-wombat-dark)
 
 ;;; mac and linux clipboard funcs
 (defun copy-from-osx ()
@@ -116,6 +117,59 @@
 (require-package 'go-guru)
 (use-package go-guru
   :demand t)
+
+
+;; icons and neotree
+(require-package 'neotree)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(defun neotree-project-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (neotree-toggle)
+    (if project-dir
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find git project root."))))
+
+;; typescript
+(require-package 'tide)
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+
+;; solidity-mode
+(require-package 'solidity-mode)
+
+(setq solidity-comment-style 'slash)
+
+(setq solidity-solc-path "/snap/bin/solc")
+
+(require-package 'solidity-flycheck)
+
+(setq solidity-flycheck-solc-checker-active t)
+
+(require-package 'company-solidity)
 
 ;;; plantuml
 (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/plantuml.jar"))
